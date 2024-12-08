@@ -1,0 +1,20 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copy requirements files
+COPY requirements.txt requirements-test.txt ./
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt -r requirements-test.txt
+
+# Create necessary directories
+RUN mkdir -p /app/reports
+
+# Copy the server and tests directories
+COPY src/server/ /app/server/
+COPY tests/ /app/tests/
+COPY pytest.ini .
+
+# Run tests with HTML report generation
+CMD ["pytest", "-v"]

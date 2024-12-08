@@ -1,0 +1,30 @@
+services:
+  trading-server:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8080
+    volumes:
+      - ./src/server:/app/server
+    command: uvicorn server.main:app --host 0.0.0.0 --port 8080 --reload
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  trading-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.tests
+    environment:
+      - API_URL=http://trading-server:8080
+      - PYTHONPATH=/app
+    volumes:
+      - ./reports:/app/reports
+    depends_on:
+      trading-server:
+        condition: service_healthy
