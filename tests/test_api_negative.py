@@ -1,4 +1,3 @@
-import asyncio
 import pytest
 
 
@@ -12,17 +11,20 @@ async def test_create_order_invalid_data(client):
     response = client.post("/orders", json={"stocks": 123, "quantity": "ten"})
     assert response.status_code == 422
 
+
 @pytest.mark.asyncio
 async def test_get_non_existent_order(client):
     # Using an invalid or non-existent order ID
     response = client.get("/orders/non_existent_id")
     assert response.status_code == 404
 
+
 @pytest.mark.asyncio
 async def test_cancel_non_existent_order(client):
     # Using an invalid or non-existent order ID
     response = client.delete("/orders/non_existent_id")
     assert response.status_code == 404
+
 
 @pytest.mark.asyncio
 async def test_cancel_non_cancellable_order(client):
@@ -38,11 +40,13 @@ async def test_cancel_non_cancellable_order(client):
     response = client.delete(f"/orders/{order_id}")
     assert response.status_code == 400
 
+
 @pytest.mark.asyncio
 async def test_execute_non_existent_order(client):
     # Using an invalid or non-existent order ID
     response = client.post("/orders/non_existent_id/execute")
     assert response.status_code == 404
+
 
 @pytest.mark.asyncio
 async def test_execute_non_executable_order(client):

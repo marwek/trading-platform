@@ -1,4 +1,5 @@
 import asyncio
+
 import pytest
 
 
@@ -9,6 +10,7 @@ async def test_create_order(client):
     data = response.json()
     assert "id" in data
     assert data["status"] == "PENDING"
+
 
 @pytest.mark.asyncio
 async def test_get_orders(client):
@@ -24,6 +26,7 @@ async def test_get_orders(client):
     orders = response.json()
     assert len(orders) == 1
 
+
 @pytest.mark.asyncio
 async def test_get_order_by_id(client):
     # Create a new order
@@ -36,6 +39,7 @@ async def test_get_order_by_id(client):
     data = response.json()
     assert data["stocks"] == "QWER"
     assert data["quantity"] == 5
+
 
 @pytest.mark.asyncio
 async def test_cancel_pending_order(client):
@@ -51,6 +55,7 @@ async def test_cancel_pending_order(client):
     response = client.get(f"/orders/{order_id}")
     assert response.status_code == 200
     assert response.json()["status"] == "CANCELLED"
+
 
 @pytest.mark.asyncio
 async def test_execute_order(client):
