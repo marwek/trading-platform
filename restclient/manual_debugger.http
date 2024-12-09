@@ -1,0 +1,23 @@
+# https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+GET http://localhost:8080/health HTTP/1.1
+
+###
+GET http://localhost:8080/orders HTTP/1.1
+
+### 
+GET http://localhost:8080/orders/8d99b769-633e-4526-9046-3e9f9d1a89e3 HTTP/1.1
+
+###
+POST http://localhost:8080/orders HTTP/1.1
+Content-Type: application/json
+
+{
+    "stocks": "AASSDD",
+    "quantity": 23.897
+}
+
+###
+DELETE http://localhost:8080/orders/f0b71ff8-9595-4149-8727-8f3023ed119f HTTP/1.1
+
+###
+POST http://localhost:8080/orders/c7745979-84ec-4fe8-864f-572d7208deeb/execute HTTP/1.1
