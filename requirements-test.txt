@@ -1,0 +1,11 @@
+httpx
+pytest
+pytest-asyncio
+pytest-cov
+pytest-env
+pytest-html
+pytest-metadata
+pytest-timeout
+pytest-xdist
+python-dotenv
+websockets
