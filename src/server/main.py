@@ -198,6 +198,7 @@ async def execute_order(order_id: str):
     
     order.status = OrderStatus.EXECUTED
     order_repository.update(order)
+    await notify_status_change(order)
     return order
 
 @app.get("/orders/{order_id}", response_model=OrderOutput)
@@ -258,4 +259,5 @@ async def cancel_order(order_id: str):
     
     order.status = OrderStatus.CANCELLED
     order_repository.update(order)
+    await notify_status_change(order)
     return order
