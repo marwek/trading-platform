@@ -21,3 +21,5 @@ results/
 reports/
 htmlcov/
 .coverage
+.env
+.env.test
